@@ -12,9 +12,18 @@
 
 {% block search %}
 <form action="/search/" class="navbar-form navbar-right" method="get">
- <div class="form-group">
- <input type="text" placeholder="Search" class="form-control" name="query"></input>
- </div>
+    <div class="form-group">
+        <input type="text" placeholder="Search" class="form-control" name="query">
+        <select name="area" class="form-control">
+            <option value="-1">All areas</option>
+            <option value="0">Botley</option>
+            <option value="1">Cowley</option>
+            <option value="2">Central</option>
+            <option value="3">Headington</option>
+            <option value="4">Jericho</option>
+            <option value="5">Summertown</option>
+        </select>
+    </div>
 </form>
 {% endblock %}
 {% block main_content %}

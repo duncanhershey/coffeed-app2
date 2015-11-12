@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
@@ -34,9 +35,19 @@ class LocationDetailView(DetailView):
 
 class SearchListView(LocationListView):
 
-	def get_queryset(self):
-		incoming_query_string = self.request.GET.get('query', '')
-		return coremodels.Location.objects.filter(title__icontains=incoming_query_string)
+    def get_queryset(self):
+        incoming_query_string = self.request.GET.get('query', '')
+        area_filter = self.request.GET.get('area', coremodels.Location.AREA_ALL)
+
+        queryset = None
+        if area_filter == coremodels.Location.AREA_ALL:
+            queryset = coremodels.Location.objects.filter(title__icontains=incoming_query_string)
+        else:
+            queryset = coremodels.Location.objects.filter(
+                Q(title__icontains=incoming_query_string) &
+                Q(area=area_filter)
+            )
+        return queryset
 
 #class LocationCreateView(CreateView):
  #	model = coremodels.Location
