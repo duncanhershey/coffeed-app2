@@ -16,6 +16,19 @@ class LocationListView(ListView):
     template_name = 'location/list.html'
     paginate_by = 5
 
+    def get_queryset(self):
+        incoming_query_string = self.request.GET.get('query', '')
+        area_filter = self.request.GET.get('area', coremodels.Location.AREA_ALL)
+
+        queryset = coremodels.Location.objects.all()
+
+        if incoming_query_string != '':
+            queryset = queryset.filter(title__icontains=incoming_query_string)
+
+        if area_filter != coremodels.Location.AREA_ALL:
+            queryset = queryset.filter(area=area_filter)
+        return queryset
+
 class LocationDetailView(DetailView):
     model = coremodels.Location
     template_name = 'location/detail.html'
@@ -33,21 +46,6 @@ class LocationDetailView(DetailView):
 
 #        return context
 
-class SearchListView(LocationListView):
-
-    def get_queryset(self):
-        incoming_query_string = self.request.GET.get('query', '')
-        area_filter = self.request.GET.get('area', coremodels.Location.AREA_ALL)
-
-        queryset = None
-        if area_filter == coremodels.Location.AREA_ALL:
-            queryset = coremodels.Location.objects.filter(title__icontains=incoming_query_string)
-        else:
-            queryset = coremodels.Location.objects.filter(
-                Q(title__icontains=incoming_query_string) &
-                Q(area=area_filter)
-            )
-        return queryset
 
 #class LocationCreateView(CreateView):
  #	model = coremodels.Location
