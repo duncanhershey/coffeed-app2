@@ -18,15 +18,16 @@ class LocationListView(ListView):
 
     def get_queryset(self):
         incoming_query_string = self.request.GET.get('query', '')
-        area_filter = self.request.GET.get('area', coremodels.Location.AREA_ALL)
+        area_filter = self.request.GET.get('area', str(coremodels.Location.AREA_ALL))
 
         queryset = coremodels.Location.objects.all()
 
         if incoming_query_string != '':
             queryset = queryset.filter(title__icontains=incoming_query_string)
 
-        if area_filter != coremodels.Location.AREA_ALL:
+        if area_filter != str(coremodels.Location.AREA_ALL):
             queryset = queryset.filter(area=area_filter)
+        print queryset.query
         return queryset
 
 class LocationDetailView(DetailView):

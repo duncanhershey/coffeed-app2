@@ -1,24 +1,19 @@
 {% extends "base/index.html" %}
 
 {% block navigation %}
- <li>
- 	<a class="page-scroll" href="/location">Find Coffee</a>
- </li>
-  <li>
- 	<a class="page-scroll" href="/location">Find Cocktails</a>
- </li>
 
 {% endblock %}
 
 {% block search %}
-<form action="/search/" class="navbar-form navbar-right" id="searchForm" method="get" onchange="document.getElementById('searchForm').submit()">
+<form action="/location/" class="navbar-form navbar-right" id="searchForm" method="get" onchange="document.getElementById('searchForm').submit()">
     <div class="form-group">
-        <input type="text" placeholder="Search" class="form-control" name="query">
+        <input type="text" placeholder="Search by name" class="form-control" name="query">
         <select name="area" class="form-control">
-            <option value="-1">All areas</option>
+        <p>Or</p>
+            <option value="-1">Filter by area</option>
             <option value="0">Botley</option>
-            <option value="1">Cowley</option>
-            <option value="2">Central</option>
+            <option value="1">Central</option>
+            <option value="2">Cowley</option>
             <option value="3">Headington</option>
             <option value="4">Jericho</option>
             <option value="5">Summertown</option>
