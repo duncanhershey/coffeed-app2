@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block search %}
-<form action="/search/" class="navbar-form navbar-right" method="get">
+<form action="/search/" class="navbar-form navbar-right" id="searchForm" method="get" onchange="document.getElementById('searchForm').submit()">
     <div class="form-group">
         <input type="text" placeholder="Search" class="form-control" name="query">
         <select name="area" class="form-control">
