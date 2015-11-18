@@ -1,7 +1,16 @@
 {% extends "base/index.html" %}
 
 {% block navigation %}
-
+ 
+ {% if user.is_authenticated %}
+ <li>
+ <a class="page-scroll" href="/location/create/">Add a Location</a>
+ </li> 
+ {% else %}
+ <li>
+ <a class="page-scroll" href="/entrance/">Log In</a>
+ </li> 
+ {% endif %} 
 {% endblock %}
 
 {% block search %}
